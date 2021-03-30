@@ -9,7 +9,7 @@ from helpers.filters import other_filters2
 async def start(_, message: Message):
     await message.reply_text(
         f"""I am **{bn}** !!
-I let you play music in your group's voice chat 😉
+I let you play music in your group's voice chat pro owner @backup_pista123 😉
 The commands I currently support are:
 ⚜️ /play - __Plays the replied audio file or YouTube video through link.__
 ⚜️ /pause - __Pause Voice Chat Music.__
@@ -21,10 +21,10 @@ The commands I currently support are:
             [
                 [
                     InlineKeyboardButton(
-                        "Group 💬", url="https://t.me/hellbot_official_chat"
+                        "Group 💬", url="https://t.me/INDIANN_CHAT_GROUP"
                     ),
                     InlineKeyboardButton(
-                        "Channel 📣", url="https://t.me/hellbot_official"
+                        "Channel 📣", url="https://t.me/riderians"
                     )
                 ]
             ]
