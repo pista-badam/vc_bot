@@ -13,11 +13,27 @@ from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
-
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 @Client.on_message(command("play") & other_filters)
 @errors
 async def play(_, message: Message):
+    
+    lel = await message.reply("🔄 **Processing** sounds...")
+    sender_id = message.from_user.id
+    sender_name = message.from_user.first_name
+    
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    text="🔊 Channel",
+                    url="https://t.me/RIDERIANS")
+                
+                ]
+            ]
+        )
+                    
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     url = get_url(message)
 
@@ -38,7 +54,16 @@ async def play(_, message: Message):
         return await message.reply_text(f"**{bn} :-** 🙄 You did not give me anything to play DEAR!")
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
+        position = await queues.put(message.chat.id, file=file_path)
         await message.reply_text(f"**{bn} :-** 😉 Queued ho chuka hai kaha pai at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !")
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
-        await message.reply_text(f"**{bn} :-** 🥳 Playing by MR. RØBØT...")
+        await message.reply_photo(
+        photo="https://telegra.ph/file/a4fa687ed647cfef52402.jpg",
+        reply_markup=keyboard,
+        caption="▶️ **Playing** here the song requested by {}!".format(
+        message.from_user.mention()
+        ),
+    )
+        return await lel.delete()
+
