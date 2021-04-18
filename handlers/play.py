@@ -54,7 +54,6 @@ async def play(_, message: Message):
         return await message.reply_text(f"**{bn} :-** 🙄 You did not give me anything to play DEAR!")
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
-        position = await queues.put(message.chat.id, file=file_path)
         await message.reply_text(f"**{bn} :-** 😉 Queued ho chuka hai kaha pai at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !")
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
